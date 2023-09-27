@@ -1,0 +1,21 @@
+
+<h1>Home Page</h1>
+<p>Welcome {{name}}</p>
+<ul>
+	<li *ngIf="isLoggedIn()">
+		<a routerLink="/admin">
+			Admin
+
+		</a>
+		
+	</li>
+	<li *ngIf="!isLoggedIn()">
+		<a routerLink="/login">
+		Login
+		</a>
+	</li>
+	<li *ngIf="isLoggedIn()">
+		<a (click)="onLogoutClick()">
+		Logout
+		</a></li>
+</ul> 
