@@ -16,4 +16,8 @@ onLogoutClick(){
 isLoggedIn(){
   return this.authService.isLoggedIn()
 }
+
+isAdmin(){
+  return this.authService.currentUser()
+}
 }

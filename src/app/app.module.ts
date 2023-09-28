@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { AuthenticationInterceptor } from './fake-backend';
 import { LogoutComponent } from './logout/logout.component';
+import { JWT_OPTIONS,JwtHelperService } from '@auth0/angular-jwt';
 
 
 
@@ -40,9 +41,13 @@ import { LogoutComponent } from './logout/logout.component';
   ],
   providers: [
     AuthService,
+    JwtHelperService,
     // Add the interceptor to the providers array
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
-  
+    {
+      provide: JWT_OPTIONS, 
+      useValue: JWT_OPTIONS 
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -12,18 +12,18 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
 
-	private jwT:string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1vc2ggSGFtZWRhbmkiLCJhZG1pbiI6dHJ1ZX0.iy8az1ZDe-_hS8GLDKsQKgPHvWpHl0zkQBqy1QIPOkA';
+	private jwT:string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ik1vc2ggSGFtZWRhbmkiLCJhZG1pbiI6ZmFsc2V9.DLTdOwxPMgCsXA9p2WDJvwimoQvL2Q6Yyn_sm6B4KRE';
   
 	intercept(req:HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>>{
 if (req.url.endsWith('/api/authenticate') && req.method==='POST'){
-	console.log("congrats if you see this")
+	
 	
 const expectedBody={
 	email:"mosh@domain.com",
 	password:"1234"
 }
 
-console.log(expectedBody)
+
 if (JSON.stringify(req.body)===JSON.stringify(expectedBody)){
 	console.log("req body equals hardcoded")
 	const successResponse=new HttpResponse({

@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-// import { JwtHelperService } from '@auth0/angular-jwt';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private jwtHelper: JwtHelperService) { }
 
   login(credentials:any){
     
@@ -32,16 +32,34 @@ export class AuthService {
 
   isLoggedIn(){
     const token = localStorage.getItem('token');
-
-    if(token){
+    console.log("Token11: ", token)
+    const expired:boolean=this.jwtHelper.isTokenExpired(token);
+    console.log("Token: ", token)
+    console.log("is token expired?:",expired)
+    if(token && !expired){
       
-        console.log("has token but it is")
+        console.log("has token ")
         return true
       
     }
-    else{
-      console.log("No token. LOL")
+    else if(token && expired){
+      console.log("token expired")
       return false
     }
-  } 
+    else{
+      console.log("No token. LOL ddd")
+      return false
+    }
+  }
+  
+  currentUser(){
+    let token = localStorage.getItem('token');
+    if (!token) return null;
+
+    const parts=token.split('.')
+    const decodedPayload=JSON.parse(atob(parts[1]));
+    const isAdmin=decodedPayload.admin
+    return isAdmin
+  }
+  
 }
