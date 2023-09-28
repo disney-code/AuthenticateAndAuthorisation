@@ -56,8 +56,10 @@ export class AuthService {
     let token = localStorage.getItem('token');
     if (!token) return null;
 
-    const parts=token.split('.')
-    const decodedPayload=JSON.parse(atob(parts[1]));
+    // const parts=token.split('.')
+    // const decodedPayload=JSON.parse(atob(parts[1]));
+    // const isAdmin=decodedPayload.admin
+    const decodedPayload=this.jwtHelper.decodeToken(token)
     const isAdmin=decodedPayload.admin
     return isAdmin
   }
