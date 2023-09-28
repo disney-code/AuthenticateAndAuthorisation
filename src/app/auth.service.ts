@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
-
+import jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
@@ -59,7 +59,11 @@ export class AuthService {
     // const parts=token.split('.')
     // const decodedPayload=JSON.parse(atob(parts[1]));
     // const isAdmin=decodedPayload.admin
-    const decodedPayload=this.jwtHelper.decodeToken(token)
+    
+    // const decodedPayload=this.jwtHelper.decodeToken(token)
+    // const isAdmin=decodedPayload.admin
+    
+    const decodedPayload=jwt_decode(token) as { admin: boolean };
     const isAdmin=decodedPayload.admin
     return isAdmin
   }
