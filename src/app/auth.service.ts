@@ -63,9 +63,9 @@ export class AuthService {
     // const decodedPayload=this.jwtHelper.decodeToken(token)
     // const isAdmin=decodedPayload.admin
     
-    const decodedPayload=jwt_decode(token) as { admin: boolean };
-    const isAdmin=decodedPayload.admin
-    return isAdmin
+    const decodedPayload=jwt_decode(token) ;
+   
+    return decodedPayload
   }
   
 }

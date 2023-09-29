@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
+// name:string=(this.authService.currentUser() as { name: string }).name
 name!:string;
 constructor(private authService: AuthService) {}
 
@@ -18,6 +19,10 @@ isLoggedIn(){
 }
 
 isAdmin(){
-  return this.authService.currentUser()
+  return (this.authService.currentUser() as {admin:boolean}).admin
+}
+
+getUserName(){
+  return (this.authService.currentUser() as {name:string}).name
 }
 }
