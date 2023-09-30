@@ -32,22 +32,21 @@ export class AuthService {
 
   isLoggedIn(){
     const token = localStorage.getItem('token');
-    console.log("Token11: ", token)
+    
     const expired:boolean=this.jwtHelper.isTokenExpired(token);
-    console.log("Token: ", token)
-    console.log("is token expired?:",expired)
+    
     if(token && !expired){
       
-        console.log("has token ")
+        
         return true
       
     }
     else if(token && expired){
-      console.log("token expired")
+    
       return false
     }
     else{
-      console.log("No token. LOL ddd")
+   
       return false
     }
   }

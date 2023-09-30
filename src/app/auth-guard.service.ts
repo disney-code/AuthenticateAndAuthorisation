@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {  Router,CanActivate } from '@angular/router';
+import {  Router,CanActivate, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -7,17 +7,20 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuard  {
 
-  constructor(private authService:AuthService, private router:Router) { }
+  constructor(private authService:AuthService,
+     private router:Router) { }
 
-  canActivate(){
+  canActivate(state: RouterStateSnapshot){
 if(this.authService.isLoggedIn()){
   return true
 }
 
 else
 {
-  console.log("not allowed to access /admin")
-  this.router.navigate(['/login'])
+ 
+  this.router.navigate(['/login'], 
+  {queryParams:{returnUrl:state.url}}
+  )
 return false
 }
   }

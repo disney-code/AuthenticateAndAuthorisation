@@ -15,6 +15,7 @@ import { AuthenticationInterceptor } from './fake-backend';
 import { LogoutComponent } from './logout/logout.component';
 import { JWT_OPTIONS,JwtHelperService } from '@auth0/angular-jwt';
 import { AuthGuard } from './auth-guard.service';
+import { AdminAuthGuard } from './admin-auth-guard.service';
 
 
 
@@ -36,7 +37,9 @@ import { AuthGuard } from './auth-guard.service';
     RouterModule.forRoot([
       {path:'',component:HomePageComponent},
      {path:'login',component:LoginComponent},
-     {path:'admin',component:AdminComponent, canActivate:[AuthGuard],
+     {path:'admin',
+     component:AdminComponent,
+     canActivate:[AuthGuard,AdminAuthGuard],
     
     },
      {path:'no-access',component:NoAccessComponent}
@@ -45,6 +48,7 @@ import { AuthGuard } from './auth-guard.service';
   providers: [
     AuthService,
     AuthGuard,
+    AdminAuthGuard,
     JwtHelperService,
     // Add the interceptor to the providers array
     { provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true },
